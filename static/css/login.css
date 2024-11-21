@@ -1,0 +1,115 @@
+/* Diseño general del contenedor de login */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.login-container {
+    display: flex;
+    width: 80%;
+    max-width: 900px;
+    height: 500px; /* Ambos cuadros tendrán la misma altura */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Evita desbordamientos innecesarios */
+}
+
+/* Panel izquierdo con el formulario de inicio de sesión */
+.login-form {
+    flex: 1;
+    padding: 30px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #0097a7;
+}
+
+/* Panel derecho con color sólido #222d32 */
+.welcome-panel {
+    flex: 1;
+    background-color: #222d32; /* Color sólido #222d32 */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    border-radius: 0 10px 10px 0;
+    height: 100%; /* Asegura que el panel tenga la misma altura que el formulario */
+}
+
+/* Mensaje "Bienvenido a MediStock" centrado en el panel */
+.farmacia-message {
+    text-align: center;
+    margin-bottom: 10px; /* Reducido el margen para acercar el texto a la imagen */
+}
+
+.farmacia-message h3 {
+    font-size: 24px;
+    margin-bottom: 5px; /* Reducido margen entre el título y la imagen */
+}
+
+/* Imagen Genericos.png */
+.farmacia-image {
+    text-align: center;
+    margin-top: 0; /* Reducido el margen superior para acercar más la imagen al texto */
+    max-width: 300px; /* Aumenta el tamaño de la imagen */
+    width: 100%; /* Ajusta el tamaño de la imagen al 100% del contenedor */
+}
+
+.farmacia-image .logo {
+    width: 100%;
+    max-width: 250px;
+    display: block;
+    margin: 0 auto; /* Centra la imagen */
+}
