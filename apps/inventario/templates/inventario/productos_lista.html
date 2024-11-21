@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Productos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Título -->
+    <div class="title-container">
+        <h1>Inventario de Productos</h1>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-container">
+        <div class="search-box">
+            <input
+                type="text"
+                class="search-bar"
+                id="searchInput"
+                placeholder="Buscar productos..."
+                onkeyup="filterTable()"
+            />
+            <span class="search-icon">🔍</span>
+        </div>
+    </div>
+
+    <!-- Listado de productos -->
+    <div class="products-list">
+        {% for producto in productos %}
+        <div class="product-card">
+            <div class="product-info">
+                <h3 class="product-name">{{ producto.nombre }}</h3>
+                <p class="product-description">{{ producto.descripcion }}</p>
+                <div class="product-details">
+                    <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+                    <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+                    <p><strong>Caducidad:</strong> {{ producto.caducidad }}</p>
+                    <p><strong>Stock:</strong> {{ producto.stock }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function filterTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const products = document.getElementsByClassName("product-card");
+
+            for (let i = 0; i < products.length; i++) {
+                const productName = products[i].getElementsByClassName("product-name")[0].innerText.toLowerCase();
+                if (productName.includes(filter)) {
+                    products[i].style.display = "";
+                } else {
+                    products[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,3 +1,11 @@
+import firebase_admin
+import os
+from firebase_admin import credentials
+
+# Ruta al archivo de credenciales
+cred = credentials.Certificate("Clave.json")
+firebase_admin.initialize_app(cred)
+
 from pathlib import Path
 import os
 
@@ -48,8 +56,8 @@ ROOT_URLCONF = 'MediStockWeb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Aquí indica el directorio global de templates
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / "templates"],  # Directorios globales opcionales para plantillas personalizadas
+        'APP_DIRS': True,  # Busca plantillas dentro de las apps instaladas
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -109,7 +117,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
