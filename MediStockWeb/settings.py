@@ -1,31 +1,21 @@
 import firebase_admin
 import os
 from firebase_admin import credentials
+from pathlib import Path
+
 
 # Ruta al archivo de credenciales
 cred = credentials.Certificate("Clave.json")
 firebase_admin.initialize_app(cred)
 
-from pathlib import Path
-import os
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-j-q_3ol(4_(gn_aedt(83&9!4f#)@3lrw4_qmdq#yeeditjkj3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,7 +27,6 @@ INSTALLED_APPS = [
     'apps.usuarios',
     'apps.inventario',
     'apps.reportes',
-    'apps.usuarios',
     'apps.ventas',
 ]
 
