@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.login_view, name='login'),  # Ruta principal para login
     path('home/', views.home_view, name='home'),  # Ruta de la página de inicio
     path('ventas/', include('apps.ventas.urls')),
-    path('productos/', include('apps.inventario.urls')),
+    path('inventario/', include('apps.inventario.urls')),  # Incluir las URLs de la app 'inventario'
+
 ]

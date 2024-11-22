@@ -44,28 +44,62 @@ header {
 }
 
 /* Estilo del nav (barra lateral izquierda) */
-nav {
-    background-color: #222d32;
-    width: 250px;
+.sidebar {
     height: 100vh;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 18px;
-    z-index: 900;
+    flex-direction: column;
+    padding: 100px 10px;
+    position: fixed;
 }
 
-/* Estilo del main */
-main {
-    margin-left: 200px; /* Espacio para el nav */
-    margin-top: 60px; /* Espacio para el header */
-    padding: 20px;
-    flex-grow: 1;
-    text-align: center;
+/* Lista del nav */
+.nav-list {
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
 }
+
+/* Estilo para los elementos de la lista */
+.nav-item {
+    margin: 15px 0;
+}
+
+/* Enlaces azules con transición al seleccionar */
+.nav-item a {
+    text-decoration: none;
+    color: #3db4a4; /* Azul */
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover en los enlaces */
+.nav-item a:hover {
+    background-color: #3a5269;
+    color: #fafafa; /* Verde */
+}
+
+/* Estilo al seleccionar un enlace */
+.nav-item a:focus, .nav-item a:active {
+    color: #ffffff; /* Blanco */
+    background-color: #0c3b6d; /* Azul más oscuro */
+}
+
+/* Iconos */
+.nav-item i {
+    font-size: 1.3rem;
+}
+
+.container {
+    display: flex;  /* Flexbox en el contenedor */
+    height: 100vh;  /* 100% del alto de la ventana */
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
