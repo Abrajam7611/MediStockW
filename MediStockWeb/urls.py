@@ -4,9 +4,10 @@ from apps.usuarios import views  # Importamos las vistas desde la app usuarios
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.login_view, name='login'),  # Ruta principal para login
-    path('home/', views.home_view, name='home'),  # Ruta de la página de inicio
+    path('', views.home, name='home'),  # Ruta de la página de inicio
+    path('login', views.login_view, name='login'),  # Ruta principal para login
     path('ventas/', include('apps.ventas.urls')),
     path('inventario/', include('apps.inventario.urls')),  # Incluir las URLs de la app 'inventario'
+     path('usuarios/', include('apps.usuarios.urls')),
 
 ]

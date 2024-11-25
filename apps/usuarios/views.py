@@ -14,7 +14,7 @@ db = firestore.Client.from_service_account_json("Clave.json")
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('inventarios:home')
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -44,7 +44,7 @@ def login_view(request):
                     
                     # Aquí solo rediriges a home si se autentica correctamente
                     messages.success(request, "Inicio de sesión exitoso.")
-                    return redirect('home')
+                    return redirect('inventarios:home')
                 else:
                     messages.error(request, "Correo o contraseña incorrectos.")
             except Exception as e:
@@ -54,5 +54,5 @@ def login_view(request):
 
     return render(request, 'usuarios/login.html', {'form': form})
 
-def home_view(request):
-    return render(request, 'usuarios/home.html')
+# def home_view(request):
+#     return render(request, 'usuarios/home.html')
