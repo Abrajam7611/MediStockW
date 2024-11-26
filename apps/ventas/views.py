@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import VentaForm
 from .models import Venta
-from apps.inventarios.models import Producto
+
 
 def registrar_venta(request):
     if request.method == 'POST':

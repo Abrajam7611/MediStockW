@@ -1,5 +1,5 @@
 from django.db import models
-from apps.inventarios.models import Producto 
+from apps.inventario.models import Producto 
 
 class Venta(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

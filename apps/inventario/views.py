@@ -1,51 +1,64 @@
 from django.shortcuts import render, redirect
-from .models import Producto
+from firebase_admin import firestore
+
+db = firestore.client()  
 
 def home(request):
-    productos = Producto.objects.all()
-    return render(request, "inventarios/product.html", {"productos": productos})
+    productos_ref = db.collection('productos')
+    productos = [doc.to_dict() for doc in productos_ref.stream()]
+    return render(request, "product.html", {"productos": productos})
 
 def registrarProducto(request):
-    nombre=request.POST['txtNombre']
-    sustancia=request.POST['txtSustancia']
-    descripcion=request.POST['txtDescripcion']
-    lote=request.POST['numLote']
-    fecha_caducidad=request.POST['txtFechaDeCaducidad']
-    stock=request.POST['numStock']
-    precio=request.POST['txtPrecio']
+    nombre = request.POST['txtNombre']
+    sustancia = request.POST['txtSustancia']
+    descripcion = request.POST['txtDescripcion']
+    lote = request.POST['numLote']
+    fecha_caducidad = request.POST['txtFechaDeCaducidad']
+    stock = request.POST['numStock']
+    precio = request.POST['txtPrecio']
 
-    producto = Producto.objects.create(
-        nombre=nombre, sustancia=sustancia, descripcion=descripcion, lote=lote, precio=precio, stock=stock, fecha_caducidad=fecha_caducidad)
-    return redirect('/')
+    producto_data = {
+        "nombre": nombre,
+        "sustancia": sustancia,
+        "descripcion": descripcion,
+        "lote": lote,
+        "fecha_caducidad": fecha_caducidad,
+        "stock": int(stock),
+        "precio": float(precio),
+    }
+
+    db.collection('productos').document(nombre).set(producto_data)
+    return redirect('/inventario/')
 
 def edicionProducto(request, nombre):
-    producto = Producto.objects.get(nombre=nombre)
-    return render(request, "inventarios/edicionProducto.html", {"nombre":nombre})
+    producto_ref = db.collection('productos').document(nombre)
+    producto = producto_ref.get()
+    if producto.exists:
+        return render(request, "edicionProducto.html", {"producto": producto.to_dict()})
+    else:
+        return redirect('/inventario/')
 
 def editarProducto(request):
-    nombre=request.POST['txtNombre']
-    sustancia=request.POST['txtSustancia']
-    descripcion=request.POST['txtDescripcion']
-    lote=request.POST['numLote']
-    fecha_caducidad=request.POST['txtFechaDeCaducidad']
-    stock=request.POST['numStock']
-    precio=request.POST['txtPrecio']
+    nombre = request.POST['txtNombre']
+    sustancia = request.POST['txtSustancia']
+    descripcion = request.POST['txtDescripcion']
+    lote = request.POST['numLote']
+    fecha_caducidad = request.POST['txtFechaDeCaducidad']
+    stock = request.POST['numStock']
+    precio = request.POST['txtPrecio']
 
-    producto = Producto.objects.get(nombre=nombre)
-    producto.nombre = nombre
-    producto.sustancia = sustancia
-    producto.descripcion = descripcion
-    producto.lote = lote
-    producto.fecha_caducidad = fecha_caducidad
-    producto.stock = stock
-    producto.precio = precio
+    producto_ref = db.collection('productos').document(nombre)
+    producto_ref.update({
+        "sustancia": sustancia,
+        "descripcion": descripcion,
+        "lote": lote,
+        "fecha_caducidad": fecha_caducidad,
+        "stock": int(stock),
+        "precio": float(precio),
+    })
 
-    producto.save()
-
-    return redirect('/')
+    return redirect('/inventario/')
 
 def eliminarProducto(request, nombre):
-    producto = Producto.objects.filter(nombre=nombre)
-    producto.delete()
-
-    return redirect('/')
+    db.collection('productos').document(nombre).delete()
+    return redirect('/inventario/')
