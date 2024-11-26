@@ -54,5 +54,5 @@ def login_view(request):
 
     return render(request, 'usuarios/login.html', {'form': form})
 
-def home_view(request):
-    return render(request, 'usuarios/home.html')
+def home(request):
+    return render(request, 'usuarios/product.html')

@@ -31,12 +31,17 @@ def registrarProducto(request):
     return redirect('/inventario/')
 
 def edicionProducto(request, nombre):
+<<<<<<< HEAD:apps/inventario/views.py
     producto_ref = db.collection('productos').document(nombre)
     producto = producto_ref.get()
     if producto.exists:
         return render(request, "edicionProducto.html", {"producto": producto.to_dict()})
     else:
         return redirect('/inventario/')
+=======
+    producto = Producto.objects.get(nombre=nombre)
+    return render(request, "iventarios/edicionProducto.html", {"nombre":nombre})
+>>>>>>> d1b7f921e2415736e55f49dcd2428af37d8ff36a:apps/inventarios/views.py
 
 def editarProducto(request):
     nombre = request.POST['txtNombre']
