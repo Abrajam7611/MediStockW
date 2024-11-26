@@ -25,8 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.usuarios',
-    'apps.inventario',
-    'apps.reportes',
+    'apps.inventarios',
+    # 'apps.reportes',
     'apps.ventas',
 ]
 
@@ -45,7 +45,7 @@ ROOT_URLCONF = 'MediStockWeb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # Directorios globales opcionales para plantillas personalizadas
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Directorios globales opcionales para plantillas personalizadas
         'APP_DIRS': True,  # Busca plantillas dentro de las apps instaladas
         'OPTIONS': {
             'context_processors': [
@@ -114,3 +114,5 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/inventarios/'

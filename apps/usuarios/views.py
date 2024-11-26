@@ -57,7 +57,4 @@ def login_view(request):
     return render(request, 'usuarios/login.html', {'form': form})
 
 def home_view(request):
-    # Obtener el inventario desde Firestore
-    productos = obtener_inventario()  # Esta función obtiene los productos de la colección 'inventario_producto'
-    
-    return render(request, 'usuarios/home.html', {'productos': productos})
+    return render(request, 'usuarios/home.html')
