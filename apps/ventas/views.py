@@ -1,11 +1,13 @@
-<<<<<<< HEAD
 import firebase_admin
 from firebase_admin import credentials, firestore  # Importa firestore aquí
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.utils import timezone
-from apps.inventario.models import Producto  # Importamos el modelo Producto de Django
+
+from apps.inventarios.models import Producto
+ # Importamos el modelo Producto de Django
 from .models import Venta  # Importamos el modelo Venta de Django
+from .forms import VentaForm  # Asegúrate de tener un formulario de venta en tu proyecto
 
 # Inicializar Firebase (solo una vez)
 if not firebase_admin._apps:
@@ -90,13 +92,8 @@ def mostrar_ventas(request):
     ventas_list = [venta.to_dict() for venta in ventas]
 
     return render(request, 'ventas/mostrar_ventas.html', {'ventas': ventas_list})
-=======
 
-from django.shortcuts import render, redirect
-from .forms import VentaForm
-from .models import Venta
-
-
+# Registrar venta usando formulario
 def registrar_venta(request):
     if request.method == 'POST':
         form = VentaForm(request.POST)
@@ -109,36 +106,7 @@ def registrar_venta(request):
         form = VentaForm()
     return render(request, 'ventas/ventas.html', {'form': form})
 
+# Listar todas las ventas
 def listar_ventas(request):
     ventas = Venta.objects.all()
     return render(request, 'ventas/lista_ventas.html', {'ventas': ventas})
-
-# from django.shortcuts import render
-
-# # Vista principal de ventas con botones
-# def ventas_inicio(request):
-#     return render(request, 'ventas/ventas.html')
-
-
-from django.shortcuts import render, redirect
-from .forms import VentaForm
-from .models import Venta
-from apps.inventarios.models import Producto
-
-def registrar_venta(request):
-    if request.method == 'POST':
-        form = VentaForm(request.POST)
-        if form.is_valid():
-            venta = form.save(commit=False)
-            venta.total = venta.producto.precio * venta.cantidad
-            venta.save()
-            return redirect('ventas')
-    else:
-        form = VentaForm()
-    return render(request, 'ventas/ventas.html', {'form': form})
-
-def listar_ventas(request):
-    ventas = Venta.objects.all()
-    return render(request, 'ventas/lista_ventas.html', {'ventas': ventas})
-
->>>>>>> 9c5a97c89a3e0727a38c4432c6d161dccc41a9a0
