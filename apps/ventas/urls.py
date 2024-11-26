@@ -1,7 +1,7 @@
-# apps/ventas/urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.ventas_inicio, name='ventas_inicio'),  # Ruta principal de ventas
+    path('', views.mostrar_ventas, name='mostrar_ventas'),  # Ruta raíz que muestra las ventas
+    path('crear/', views.crear_venta, name='crear_venta'),  # Ruta para crear una venta
 ]

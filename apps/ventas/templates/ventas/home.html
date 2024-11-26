@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - MediStock</title>
+</head>
+<body>
+    <div class="menu">
+        <a href="{% url 'mostrar_inventario' %}">Inventario</a>  <!-- Enlace al inventario -->
+        <a href="{% url 'crear_venta' %}">Crear Venta</a>        <!-- Enlace para registrar ventas -->
+    </div>
+    
+    <div class="contenido">
+        {% block content %}
+        <!-- Aquí se renderiza el contenido de cada página según la ruta -->
+        {% endblock %}
+    </div>
+</body>
+</html>

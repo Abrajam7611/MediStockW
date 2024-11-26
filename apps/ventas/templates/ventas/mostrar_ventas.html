@@ -1,0 +1,50 @@
+<!-- apps/ventas/templates/ventas/mostrar_ventas.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas Realizadas</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ventas Realizadas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+            <tr>
+                <td>{{ venta.nombre }}</td>
+                <td>{{ venta.cantidad }}</td>
+                <td>{{ venta.precio }}</td>
+                <td>{{ venta.total }}</td>
+                <td>{{ venta.fecha|date:"d/m/Y H:i" }}</td>  <!-- Formato de fecha -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

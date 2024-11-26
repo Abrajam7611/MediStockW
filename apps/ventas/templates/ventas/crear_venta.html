@@ -1,0 +1,68 @@
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Venta
+from apps.inventario.models import Producto  # Importamos el modelo Producto de la app de inventario
+from django.utils import timezone  # Para obtener la fecha y hora actual
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# Inicializar Firebase
+if not firebase_admin._apps:
+    cred = credentials.Certificate("Clave.json")  # Asegúrate de que el archivo 'Clave.json' esté en el directorio correcto
+    firebase_admin.initialize_app(cred)
+
+# Función para agregar la venta a Firestore
+def agregar_venta(cantidad, fecha, nombre, precio, total):
+    # Definir la referencia a la colección de ventas
+    ventas_ref = firestore.client().collection('ventas')
+    
+    # Datos de la venta a agregar
+    venta_data = {
+        'cantidad': cantidad,
+        'fecha': fecha,
+        'nombre': nombre,
+        'precio': precio,
+        'total': total
+    }
+
+    # Agregar los datos a Firestore
+    ventas_ref.add(venta_data)
+    print("Venta agregada exitosamente")
+
+def crear_venta(request):
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto_id')
+        cantidad_vendida = int(request.POST.get('cantidad'))
+        precio_producto = float(request.POST.get('precio'))
+        
+        # 1. Obtener la fecha y hora actual
+        fecha_actual = timezone.now()  # Esto obtiene la fecha y hora actuales
+        
+        # 2. Registrar la venta en la base de datos de Django
+        try:
+            venta = Venta.objects.create(
+                producto_id=producto_id,
+                cantidad=cantidad_vendida,
+                precio=precio_producto,
+                total=cantidad_vendida * precio_producto,
+                fecha=fecha_actual,
+            )
+            
+            # 3. Verificar si el producto existe y si hay suficiente stock
+            producto = Producto.objects.get(id=producto_id)
+            if producto.stock >= cantidad_vendida:
+                # Actualizar el stock en la base de datos
+                producto.stock -= cantidad_vendida
+                producto.save()  # Guardamos el producto con el nuevo stock
+                
+                # 4. Agregar la venta a Firebase
+                agregar_venta(cantidad_vendida, fecha_actual, producto.nombre, precio_producto, cantidad_vendida * precio_producto)
+                
+                # Redirigir a la vista de ventas o mostrar un mensaje de éxito
+                return redirect('mostrar_ventas')  # Asumiendo que 'mostrar_ventas' es la URL para ver las ventas
+            else:
+                return HttpResponse("No hay suficiente stock para completar la venta.")
+        except Producto.DoesNotExist:
+            return HttpResponse("Producto no encontrado en el inventario.")
+    
+    return render(request, 'ventas/crear_venta.html')
