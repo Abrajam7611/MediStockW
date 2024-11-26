@@ -3,7 +3,7 @@ from .models import Producto
 
 def home(request):
     productos = Producto.objects.all()
-    return render(request, "product.html", {"productos": productos})
+    return render(request, "inventarios/product.html", {"productos": productos})
 
 def registrarProducto(request):
     nombre=request.POST['txtNombre']
@@ -20,7 +20,7 @@ def registrarProducto(request):
 
 def edicionProducto(request, nombre):
     producto = Producto.objects.get(nombre=nombre)
-    return render(request, "edicionProducto.html", {"nombre":nombre})
+    return render(request, "iventarios/edicionProducto.html", {"nombre":nombre})
 
 def editarProducto(request):
     nombre=request.POST['txtNombre']

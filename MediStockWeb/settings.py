@@ -45,7 +45,7 @@ ROOT_URLCONF = 'MediStockWeb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # Directorios globales opcionales para plantillas personalizadas
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Directorios globales opcionales para plantillas personalizadas
         'APP_DIRS': True,  # Busca plantillas dentro de las apps instaladas
         'OPTIONS': {
             'context_processors': [
